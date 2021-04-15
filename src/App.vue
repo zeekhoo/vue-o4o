@@ -1,28 +1,57 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <v-app>
+        <v-app-bar app>
+            <v-toolbar-title class="headline text-uppercase">
+                <span class="font-weight-light">OAuth for Okta</span>
+            </v-toolbar-title>
+
+            <v-spacer></v-spacer>
+
+            <div v-if="authState.isAuthenticated">
+                <v-btn text @click="home()">
+                    <v-icon 
+                        left 
+                        dark 
+                    >mdi-home</v-icon>Home
+                </v-btn>
+            </div>
+
+            <router-link
+                to="/login"
+                v-if="!authState.isAuthenticated"
+            >
+                <v-btn text>Login</v-btn>
+            </router-link>
+            <v-btn v-else text @click="logout">Logout</v-btn>
+
+        </v-app-bar>
+        <v-main>
+            <router-view />
+        </v-main>
+    </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+  data: () => ({
+  }),
+  computed: {
+  },
+  methods: {
+    async logout() {
+      if (this.authState.isAuthenticated) {
+        this.$store.commit("logout");
+        await this.$auth.signOut();
+      }
+    },
+    home() {
+      if (window.location.pathname != '/')
+        this.$router.push({name: 'home'})
+    }
+
+  }
+};
+</script>
