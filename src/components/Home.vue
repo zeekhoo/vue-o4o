@@ -63,9 +63,9 @@ export default {
     return {
       cards: [
         {
-          name: "masquerade",
-          subtitle: "Start a delegated session",
-          icon: "domino-mask",
+          name: "Users",
+          subtitle: "Search users",
+          icon: "account",
           flex: 6,
           route: "users",
         }

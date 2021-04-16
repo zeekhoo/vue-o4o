@@ -32,11 +32,11 @@
                 x-small
                 outlined
                 v-on="on"
-                @click="impersonate(item)"
-            >Impersonate</v-chip>
+                @click="userAction(item)"
+            >Function</v-chip>
           </template>
           <v-card flat color="transparent" class="mx-auto">
-            <div class="white--text caption">Click to impersonate</div>
+            <div class="white--text caption">Click to invoke function</div>
           </v-card>
         </v-tooltip>
       </template>
@@ -171,7 +171,7 @@ export default {
         await self.loadUsers();
       }, 300);
     },
-    async impersonate(item) {
+    async userAction(item) {
       console.log(item)
     },
     urlParams(query) {
